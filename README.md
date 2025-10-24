@@ -6,7 +6,7 @@ npm run build
 npm run lint
 ```
 
-Visit `http://localhost:3000` to preview the site locally.
+then go to `http://localhost:3000` to preview the site.
 
 ## Project Structure
 ```
@@ -15,9 +15,9 @@ app/
 ├─ page.tsx          # Landing page content & animations
 ├─ globals.css       # Tailwind imports + custom animation utilities
 components/
-├─ Logo.tsx          # Re-usable logo component
+├─ Logo.tsx       
 public/
-├─ kiosk-display.svg # Custom illustration (optional usage)
+├─ kiosk-display.svg 
 ```
 
 
