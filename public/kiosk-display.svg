@@ -1,0 +1,36 @@
+<svg width="700" height="980" viewBox="0 0 700 980" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect x="12" y="12" width="676" height="956" rx="34" fill="#1a1a1a"/>
+  <rect x="0" y="0" width="700" height="980" rx="40" stroke="url(#frame)" stroke-opacity="0.4" stroke-width="24"/>
+  <rect x="62" y="96" width="576" height="708" rx="26" fill="url(#screen)"/>
+  <g stroke="#38bdf8" stroke-opacity="0.35" stroke-width="2">
+    <path d="M96 650L210 520L360 600L510 480L620 560"/>
+    <path d="M120 440L260 360L400 420L532 308L618 360"/>
+    <path d="M130 240L214 300L318 220L438 300L560 220"/>
+    <path d="M140 540L260 460L356 520L470 440L586 500"/>
+    <circle cx="210" cy="520" r="6" fill="#38bdf8"/>
+    <circle cx="360" cy="600" r="6" fill="#38bdf8"/>
+    <circle cx="510" cy="480" r="6" fill="#38bdf8"/>
+    <circle cx="260" cy="460" r="6" fill="#38bdf8"/>
+    <circle cx="470" cy="440" r="6" fill="#38bdf8"/>
+    <circle cx="318" cy="220" r="6" fill="#38bdf8"/>
+    <circle cx="438" cy="300" r="6" fill="#38bdf8"/>
+  </g>
+  <rect x="62" y="804" width="576" height="38" rx="19" fill="#2dd4bf"/>
+  <g fill="white" font-family="Poppins, Inter, Arial, sans-serif">
+    <text x="108" y="240" font-size="64" font-weight="600">Earn Passive</text>
+    <text x="108" y="320" font-size="64" font-weight="600">Income</text>
+    <text x="108" y="410" font-size="34" font-weight="400">Generate revenue without</text>
+    <text x="108" y="460" font-size="34" font-weight="400">any effort. Your space</text>
+    <text x="108" y="510" font-size="34" font-weight="400">works for you 24/7.</text>
+  </g>
+  <defs>
+    <linearGradient id="frame" x1="0" y1="0" x2="700" y2="980" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#8c8c8c"/>
+      <stop offset="1" stop-color="#333333"/>
+    </linearGradient>
+    <linearGradient id="screen" x1="62" y1="96" x2="638" y2="804" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0f172a"/>
+      <stop offset="1" stop-color="#020617"/>
+    </linearGradient>
+  </defs>
+</svg>

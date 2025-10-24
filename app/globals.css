@@ -1,0 +1,219 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+body {
+  @apply bg-neutral-950 text-neutral-100 antialiased;
+}
+
+.gradient-border {
+  position: relative;
+}
+
+.gradient-border::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.6), rgba(59, 130, 246, 0.4));
+  -webkit-mask:
+    linear-gradient(#000, #000) content-box,
+    linear-gradient(#000, #000);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.reveal,
+.fade-up,
+.fade-in,
+.scale-in {
+  opacity: 0;
+}
+
+.reveal {
+  transform: translateY(20px);
+}
+
+.fade-up {
+  transform: translateY(24px);
+}
+
+.scale-in {
+  transform: scale(0.95);
+}
+
+.reveal.is-visible {
+  animation: reveal-in 0.8s ease forwards;
+}
+
+.fade-up.is-visible {
+  animation: fade-up 0.9s ease forwards;
+}
+
+.fade-in.is-visible {
+  animation: fade-in 0.9s ease forwards;
+}
+
+.scale-in.is-visible {
+  animation: scale-in 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.reveal-delay-1 {
+  animation-delay: 0.15s;
+}
+
+.reveal-delay-2 {
+  animation-delay: 0.3s;
+}
+
+.reveal-delay-3 {
+  animation-delay: 0.45s;
+}
+
+.float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.float-slow {
+  animation: float 9s ease-in-out infinite;
+}
+
+.float-fast {
+  animation: float 4.5s ease-in-out infinite;
+}
+
+.pulse-glow {
+  animation: pulse 4s ease-in-out infinite;
+}
+
+.hero-word-cycle {
+  position: relative;
+  display: inline-block;
+  min-width: 8ch;
+  height: 1em;
+  line-height: 1;
+  margin-left: 0.35rem;
+  vertical-align: baseline;
+}
+
+.cycle-word {
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform: translateY(40%);
+  opacity: 0;
+  transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.cycle-word.is-active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.cycle-word:nth-child(1) {
+  color: #fcdc66;
+}
+
+.cycle-word:nth-child(2) {
+  color: #60a5fa;
+}
+
+.cycle-word:nth-child(3) {
+  color: #34d399;
+}
+
+.cycle-word:nth-child(4) {
+  color: #fef3c7;
+}
+
+.ticker {
+  position: relative;
+  overflow: hidden;
+  mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+}
+
+.ticker-content {
+  display: inline-flex;
+  gap: 1.5rem;
+  animation: ticker 28s linear infinite;
+}
+
+@keyframes reveal-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-14px);
+  }
+}
+
+@keyframes ticker {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+  50% {
+    opacity: 0.9;
+  }
+}
