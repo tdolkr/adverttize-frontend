@@ -1,26 +1,52 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { ShieldCheck, Sparkles, LineChart } from "lucide-react";
 import { Logo } from "@/components/Logo";
-const navLinks = [
-  { label: "How it works", href: "#how" },
-  { label: "Inventory", href: "#inventory" },
-  { label: "Pricing", href: "#pricing" },
-  { label: "Resources", href: "#resources" },
-  { label: "Contact", href: "#contact" }
+import { GooeyBackground } from "@/components/host/GooeyBackground";
+import { HostHeader } from "@/components/host/Header";
+
+const personaHighlights = [
+  {
+    key: "host",
+    label: "Host",
+    statLabel: "Estimated payout",
+    stat: "₹1.6L – 2.1L / month",
+    description:
+      "Digitize lobbies, lifts, and atriums with IoT-ready players, AMC, and brand partnerships handled end-to-end by Adverttize.",
+    pills: ["No capex", "Remote health checks", "Creative compliance"]
+  },
+  {
+    key: "invest",
+    label: "Invest",
+    statLabel: "Projected IRR",
+    stat: "18.4% blended",
+    description:
+      "Access curated DOOH venues with transparent occupancy, escrow-backed payouts, and reporting your investors already trust.",
+    pills: ["Escrow protection", "Portfolio dashboards", "Live settlements"]
+  },
+  {
+    key: "advertise",
+    label: "Advertise",
+    statLabel: "Avg. uplift",
+    stat: "4.6x attributed sales",
+    description:
+      "Plan hyperlocal to national launches, trigger creatives on live data, and sync results back into your CRM automatically.",
+    pills: ["Programmatic pipes", "Audience APIs", "Attribution-ready"]
+  }
 ];
 
-const clientNames = [
-  "Coca-Cola",
-  "Samsung",
-  "Pepsi",
-  "Zomato",
-  "Nykaa",
-  "Uber",
-  "Dunzo",
-  "Sony"
+const clientPartners = [
+  { name: "Coca-Cola", logo: "/brand-coca.svg" },
+  { name: "Samsung", logo: "/brand-samsung.svg" },
+  { name: "Pepsi", logo: "/brand-pepsi.svg" },
+  { name: "Zomato", logo: "/brand-zomato.svg" },
+  { name: "Nykaa", logo: "/brand-nykaa.svg" },
+  { name: "Uber", logo: "/brand-uber.svg" },
+  { name: "Dunzo", logo: "/brand-dunzo.svg" },
+  { name: "Sony", logo: "/brand-sony.svg" }
 ];
 
 const howItWorks = [
@@ -79,6 +105,43 @@ const solutions = [
   }
 ];
 
+const hostSpotlight = {
+  subtitle: "Host with Adverttize",
+  title: "Transform unused foyers into monetized DOOH destinations.",
+  description:
+    "We audit your location, install hardware, and remotely manage uptime so you unlock a new revenue line without operational drag.",
+  bullets: [
+    "Premium-grade kiosk and wall mounts installed under 21 days.",
+    "Predictable revenue share agreements with transparent dashboards.",
+    "On-ground service partners plus 24/7 network operations center."
+  ],
+  metrics: [
+    { label: "Avg. occupancy", value: "94%" },
+    { label: "Go-live time", value: "21 days" },
+    { label: "Hardware cost", value: "₹0 upfront" }
+  ]
+};
+
+const heroSignals = [
+  {
+    label: "Screens live",
+    value: "45k+",
+    detail: "Programmatic-ready across India"
+  },
+  {
+    label: "Average uptime",
+    value: "99.4%",
+    detail: "Monitored by NOC 24/7"
+  },
+  {
+    label: "Creative approvals",
+    value: "< 10 min",
+    detail: "Automated compliance workflows"
+  }
+];
+
+const containerClass = "mx-auto w-full max-w-6xl px-6 sm:px-8 lg:px-12";
+
 const metrics = [
   { label: "Screens on platform", value: "45,000+" },
   { label: "Markets covered", value: "120+" },
@@ -113,7 +176,18 @@ const testimonials = [
   }
 ];
 
+const advertiseCtaBullets = [
+  { icon: ShieldCheck, label: "Brand-safe inventory" },
+  { icon: Sparkles, label: "Creative automation" },
+  { icon: LineChart, label: "Real-time measurement" }
+];
+
 export default function Home() {
+  const [activePersona, setActivePersona] = useState(personaHighlights[0].key);
+  const currentPersona =
+    personaHighlights.find((persona) => persona.key === activePersona) ??
+    personaHighlights[0];
+
   useEffect(() => {
     const elements = document.querySelectorAll<HTMLElement>("[data-animate]");
     const observer = new IntersectionObserver(
@@ -167,52 +241,29 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="relative flex min-h-screen flex-col overflow-hidden bg-neutral-950 text-neutral-100">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(251,191,36,0.14),_transparent_55%)]" />
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[520px] bg-[radial-gradient(ellipse_at_bottom,_rgba(59,130,246,0.15),_transparent_60%)] blur-2xl" />
+    <main className="relative flex min-h-screen flex-col overflow-hidden bg-black text-neutral-100">
+      <div className="home-soft-gradient" aria-hidden />
+      <div className="home-noise-overlay" aria-hidden />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[520px] bg-gradient-to-b from-transparent via-black/20 to-black" />
+      <HostHeader />
 
-      <header
-        className="sticky top-0 z-30 border-b border-white/5 bg-neutral-950/70 backdrop-blur fade-in"
-        data-animate
-        style={{ animationDelay: "0.08s" }}
+      <section
+        id="host"
+        className="relative isolate scroll-mt-24 overflow-hidden pb-10 pt-28 sm:scroll-mt-32 sm:pt-32 lg:pt-36"
       >
-        <div className="mx-auto flex w-full max-w-6xl items-center justify-between gap-6 px-6 py-5 sm:px-8 lg:px-12">
-          <Logo className="h-11 w-auto" priority />
-          <nav className="hidden items-center gap-8 text-sm font-medium text-white/80 lg:flex">
-            {navLinks.map((link) => (
-              <Link
-                key={link.label}
-                href={link.href}
-                className="transition hover:text-white"
-              >
-                {link.label}
-              </Link>
-            ))}
-          </nav>
-          <div className="flex items-center gap-3">
-            <button className="hidden rounded-full border border-white/15 px-5 py-2 text-sm font-semibold text-white/80 transition hover:border-brand hover:text-brand lg:inline-flex">
-              Log in
-            </button>
-            <button className="rounded-full bg-brand px-5 py-2 text-sm font-semibold text-neutral-900 shadow-glow transition hover:bg-brand-dark">
-              Book a demo
-            </button>
-          </div>
-        </div>
-      </header>
-
-      <section className="relative isolate overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(251,191,36,0.12),transparent_55%)]">
-          <div className="absolute inset-0 bg-gradient-to-b from-neutral-950 via-neutral-950/95 to-neutral-950" />
+        <div className="absolute inset-0 bg-black">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(255,255,255,0.05),transparent_55%)] opacity-40" />
         </div>
 
-        <div className="relative z-10 mx-auto grid w-full max-w-6xl items-center gap-12 px-6 pb-24 pt-16 sm:px-8 lg:grid-cols-[1.1fr_minmax(0,0.9fr)] lg:px-12 lg:pb-28 lg:pt-20">
+        <div
+          className={`relative z-10 ${containerClass} grid items-start gap-12 pb-24 lg:grid-cols-[1.1fr_minmax(0,0.9fr)] lg:gap-16 lg:pb-28`}
+        >
           <div className="space-y-8">
             <span
               className="fade-in inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/10 px-5 py-2 text-xs uppercase tracking-[0.25em] text-white/80"
               data-animate
             >
-              Outdoor advertising made simple
-
+              Advertising made smarter
             </span>
             <h1
               className="reveal text-4xl font-semibold leading-tight text-white sm:text-5xl lg:text-6xl"
@@ -232,9 +283,7 @@ export default function Home() {
               className="reveal reveal-delay-1 max-w-xl text-base text-neutral-200 sm:text-lg"
               data-animate
             >
-              A powerful digital signage platform to grow your brand visibility across thousands of screens nationwide.
-
-
+              Everything you love about adverttize.com—inventory search, transparent pricing, and real-time attribution—refined for launch teams that need answers in seconds.
             </p>
             <div
               className="reveal reveal-delay-2 flex flex-wrap gap-3"
@@ -264,16 +313,87 @@ export default function Home() {
                 </div>
               ))}
             </div>
+            {currentPersona && (
+              <div
+                className="reveal reveal-delay-3 rounded-3xl border border-white/10 bg-white/5 p-6 shadow-[0_25px_80px_rgba(8,8,8,0.45)] backdrop-blur"
+                data-animate
+                aria-live="polite"
+              >
+                <div
+                  className="flex flex-wrap gap-2"
+                  role="group"
+                  aria-label="Persona switcher"
+                >
+                  {personaHighlights.map((persona) => {
+                    const isActive = persona.key === activePersona;
+                    return (
+                      <button
+                        key={persona.key}
+                        type="button"
+                        aria-pressed={isActive}
+                        onClick={() => setActivePersona(persona.key)}
+                        className={`rounded-full border px-4 py-2 text-xs font-semibold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand ${
+                          isActive
+                            ? "border-brand bg-brand text-neutral-900 shadow-glow"
+                            : "border-white/20 text-white/70 hover:border-white/50"
+                        }`}
+                      >
+                        {persona.label}
+                      </button>
+                    );
+                  })}
+                </div>
+                <div className="mt-5 grid gap-5 lg:grid-cols-[0.55fr_minmax(0,1fr)]">
+                  <div className="rounded-2xl border border-white/10 bg-black/40 p-5 text-center">
+                    <p className="text-[0.65rem] uppercase tracking-[0.3em] text-white/50">
+                      {currentPersona.statLabel}
+                    </p>
+                    <p className="mt-3 text-3xl font-semibold text-white">
+                      {currentPersona.stat}
+                    </p>
+                  </div>
+                  <div className="space-y-4 text-sm text-neutral-300">
+                    <p>{currentPersona.description}</p>
+                    <div className="flex flex-wrap gap-2">
+                      {currentPersona.pills.map((pill) => (
+                        <span
+                          key={pill}
+                          className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-semibold text-white/70"
+                        >
+                          {pill}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+            <div className="reveal reveal-delay-3 grid gap-3 text-sm text-white/80 md:grid-cols-3" data-animate>
+              {heroSignals.map((signal) => (
+                <div
+                  key={signal.label}
+                  className="rounded-2xl border border-white/10 bg-black/40 p-4 text-center"
+                >
+                  <p className="text-[0.6rem] uppercase tracking-[0.3em] text-white/40">
+                    {signal.label}
+                  </p>
+                  <p className="mt-1 text-xl font-semibold text-white">
+                    {signal.value}
+                  </p>
+                  <p className="text-xs text-white/60">{signal.detail}</p>
+                </div>
+              ))}
+            </div>
           </div>
 
-          <div className="relative mx-auto flex w-full max-w-md justify-center">
-            <div
-              className="scale-in w-full overflow-hidden rounded-[32px] border border-white/10 bg-neutral-900/80 p-6 shadow-[0_35px_120px_rgba(8,8,8,0.7)] backdrop-blur"
-              data-animate
-            >
-              <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-brand/10 via-blue-500/20 to-neutral-900 p-6">
-                <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(251,191,36,0.35),transparent_55%),radial-gradient(circle_at_80%_20%,rgba(59,130,246,0.35),transparent_60%)] opacity-70" />
-                <div className="relative space-y-6">
+        <div className="relative mx-auto flex w-full max-w-lg justify-center lg:justify-end">
+          <div
+            className="scale-in w-full overflow-hidden rounded-[32px] border border-white/10 bg-neutral-900/80 p-6 shadow-[0_35px_120px_rgba(8,8,8,0.7)] backdrop-blur"
+            data-animate
+          >
+            <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-brand/10 via-blue-500/20 to-neutral-900 p-6">
+              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(251,191,36,0.35),transparent_55%),radial-gradient(circle_at_80%_20%,rgba(59,130,246,0.35),transparent_60%)] opacity-70" />
+              <div className="relative space-y-6">
                   <div className="space-y-2">
                     <p className="text-xs uppercase tracking-[0.3em] text-white/60">
                       Live campaign
@@ -313,40 +433,106 @@ export default function Home() {
             <div className="absolute -right-10 top-10 hidden h-24 w-24 rounded-full bg-brand/20 blur-2xl pulse-glow sm:block" />
           </div>
         </div>
+        <div className={`relative z-10 ${containerClass} mt-16`}>
+          <div className="rounded-[32px] border border-white/10 bg-white/5 p-8 shadow-[0_20px_70px_rgba(8,8,8,0.45)] backdrop-blur lg:p-10">
+            <div className="grid items-start gap-10 lg:grid-cols-2">
+              <div className="space-y-6">
+                <span className="text-xs uppercase tracking-[0.3em] text-brand">
+                  {hostSpotlight.subtitle}
+                </span>
+                <h3 className="text-3xl font-semibold text-white sm:text-4xl">
+                  {hostSpotlight.title}
+                </h3>
+                <p className="text-sm text-neutral-300">
+                  {hostSpotlight.description}
+                </p>
+                <ul className="space-y-3 text-sm text-neutral-200">
+                  {hostSpotlight.bullets.map((bullet) => (
+                    <li key={bullet} className="flex gap-3">
+                      <span className="mt-1 inline-flex h-2 w-2 rounded-full bg-brand" aria-hidden />
+                      <span>{bullet}</span>
+                    </li>
+                  ))}
+                </ul>
+                <div className="grid gap-4 sm:grid-cols-3">
+                  {hostSpotlight.metrics.map((metric) => (
+                    <div
+                      key={metric.label}
+                      className="rounded-2xl border border-white/10 bg-black/40 p-4"
+                    >
+                      <p className="text-[0.65rem] uppercase tracking-[0.3em] text-white/50">
+                        {metric.label}
+                      </p>
+                      <p className="mt-2 text-2xl font-semibold text-white">
+                        {metric.value}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="relative overflow-hidden rounded-[28px] border border-white/10 bg-neutral-900/70 p-6 lg:p-8">
+                <div className="pointer-events-none absolute inset-0 rounded-[28px] bg-[radial-gradient(circle_at_20%_20%,rgba(251,191,36,0.2),transparent_55%),radial-gradient(circle_at_80%_80%,rgba(59,130,246,0.2),transparent_55%)] opacity-70" />
+                <div className="relative">
+                  <Image
+                    src="/kiosk-display.svg"
+                    alt="Adverttize smart kiosk mock-up"
+                    width={520}
+                    height={520}
+                    className="mx-auto h-auto w-full max-w-sm object-contain"
+                  />
+                  <div className="mt-4 space-y-1 text-center">
+                    <p className="text-xs uppercase tracking-[0.25em] text-white/50">
+                      Remote managed signage
+                    </p>
+                    <p className="text-sm text-neutral-300">
+                      IoT health, creative approvals, and AMC included in your plan.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
         <div className="pointer-events-none absolute -left-20 top-32 hidden h-48 w-48 rounded-full bg-brand/25 blur-3xl float-slow lg:block" />
         <div className="pointer-events-none absolute right-12 bottom-16 hidden h-36 w-36 rounded-full bg-blue-500/25 blur-2xl float md:block" />
       </section>
 
       <section className="border-y border-white/5 bg-black/40">
-        <div className="mx-auto flex w-full max-w-6xl flex-col gap-6 px-6 py-10 sm:px-8 lg:px-12">
+        <div className={`${containerClass} flex flex-col gap-6 py-10`}>
           <p
             className="fade-in text-xs uppercase tracking-[0.35em] text-white/50"
             data-animate
           >
             Trusted by India’s leading brands
           </p>
-          <div className="ticker">
-            <div className="ticker-content text-sm font-semibold text-white/70">
-              {[...clientNames, ...clientNames].map((client, index) => (
-                <div
-                  key={`${client}-${index}`}
-                  className="reveal flex min-w-[160px] items-center justify-center rounded-xl border border-white/5 bg-white/5 px-5 py-3 backdrop-blur"
-                  data-animate
-                  style={{ animationDelay: `${(index % clientNames.length) * 0.08}s` }}
-                >
-                  {client}
-                </div>
-              ))}
+          <div className="rounded-[28px] border border-white/10 bg-white/5 p-4 shadow-[0_15px_40px_rgba(8,8,8,0.35)] sm:p-6">
+            <div className="ticker">
+              <div className="ticker-content inline-flex items-center gap-6 text-white/70">
+                {[...clientPartners, ...clientPartners].map((client, index) => (
+                  <div
+                    key={`${client.name}-${index}`}
+                    className="reveal flex min-w-[160px] items-center justify-center rounded-2xl border border-white/5 bg-white/5 px-6 py-4 backdrop-blur"
+                    data-animate
+                    style={{ animationDelay: `${(index % clientPartners.length) * 0.08}s` }}
+                  >
+                    <Image
+                      src={client.logo}
+                      alt={client.name}
+                      width={120}
+                      height={40}
+                      className="h-8 w-auto object-contain opacity-90"
+                    />
+                    <span className="sr-only">{client.name}</span>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section
-        id="how"
-        className="mx-auto w-full max-w-6xl px-6 py-20 sm:px-8 lg:px-12"
-      >
-        <div className="grid gap-12 lg:grid-cols-[1.1fr_minmax(0,0.9fr)]">
+      <section id="about" className={`${containerClass} scroll-mt-24 py-20 sm:scroll-mt-32`}>
+        <div className="grid gap-12 lg:grid-cols-[1.1fr_minmax(0,0.9fr)] lg:gap-16">
           <div className="space-y-6">
             <span
               className="fade-in text-xs uppercase tracking-[0.25em] text-brand"
@@ -419,11 +605,11 @@ export default function Home() {
       </section>
 
       <section
-        id="inventory"
-        className="relative isolate overflow-hidden bg-gradient-to-b from-black/40 via-neutral-950 to-neutral-950 py-24"
+        id="advertise"
+        className="relative isolate scroll-mt-24 overflow-hidden bg-gradient-to-b from-black/40 via-neutral-950 to-neutral-950 py-24 sm:scroll-mt-32"
       >
         <div className="pointer-events-none absolute inset-x-0 -top-32 h-64 bg-[radial-gradient(circle_at_center,_rgba(251,191,36,0.2),_transparent_70%)] blur-3xl" />
-        <div className="relative mx-auto flex w-full max-w-6xl flex-col gap-12 px-6 sm:px-8 lg:px-12">
+        <div className={`relative ${containerClass} flex flex-col gap-12`}>
           <div className="space-y-4 text-center">
             <span
               className="fade-in text-xs uppercase tracking-[0.3em] text-brand"
@@ -502,10 +688,10 @@ export default function Home() {
       </section>
 
       <section
-        id="pricing"
-        className="relative mx-auto w-full max-w-6xl px-6 py-20 sm:px-8 lg:px-12"
+        id="invest"
+        className={`relative ${containerClass} scroll-mt-24 py-20 sm:scroll-mt-32`}
       >
-        <div className="grid gap-12 lg:grid-cols-[1fr_1.1fr]">
+        <div className="grid gap-12 lg:grid-cols-[1fr_1.1fr] lg:gap-16">
           <div className="space-y-6">
             <span
               className="fade-in text-xs uppercase tracking-[0.3em] text-brand"
@@ -613,10 +799,9 @@ export default function Home() {
 
       <section
         id="resources"
-        className="relative isolate overflow-hidden bg-gradient-to-br from-brand/10 via-transparent to-blue-500/10 py-24"
+        className="relative isolate overflow-hidden bg-black py-24"
       >
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(251,191,36,0.18),_transparent_60%)] blur-2xl" />
-        <div className="relative mx-auto flex w-full max-w-6xl flex-col gap-12 px-6 sm:px-8 lg:px-12">
+        <div className={`relative ${containerClass} flex flex-col gap-12`}>
           <div className="text-center">
             <span
               className="fade-in text-xs uppercase tracking-[0.3em] text-brand"
@@ -635,7 +820,7 @@ export default function Home() {
             {testimonials.map((testimonial, index) => (
               <article
                 key={testimonial.name}
-                className="relative overflow-hidden rounded-[28px] border border-white/10 bg-neutral-900/70 p-8 shadow-[0_25px_70px_rgba(8,8,8,0.5)] backdrop-blur reveal"
+                className="relative flex h-full flex-col overflow-hidden rounded-[28px] border border-white/10 bg-neutral-900/70 p-8 shadow-[0_25px_70px_rgba(8,8,8,0.5)] backdrop-blur reveal"
                 data-animate
                 style={{ animationDelay: `${index * 0.12}s` }}
               >
@@ -683,43 +868,42 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="relative mx-auto w-full max-w-6xl px-6 py-20 sm:px-8 lg:px-12">
+      <section
+        id="career"
+        className="relative isolate overflow-hidden border-y border-white/5 bg-gradient-to-b from-neutral-950 via-black to-neutral-900 py-20 scroll-mt-24 sm:scroll-mt-32"
+      >
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(250,204,21,0.12),transparent_60%)] blur-3xl" />
+        <div className="pointer-events-none absolute inset-0 opacity-75" aria-hidden>
+          <GooeyBackground hueRange={[40, 60]} />
+        </div>
         <div
-          className="scale-in relative overflow-hidden rounded-[32px] border border-white/10 bg-neutral-900/80 p-10 text-center shadow-[0_20px_80px_rgba(8,8,8,0.6)]"
+          className={`${containerClass} relative z-10 flex flex-col items-center gap-5 text-center`}
           data-animate
         >
-          <div className="absolute -left-24 top-1/2 hidden h-60 w-60 -translate-y-1/2 rounded-full bg-brand/10 blur-3xl md:block" />
-          <div className="absolute -right-24 top-1/2 hidden h-60 w-60 -translate-y-1/2 rounded-full bg-blue-500/10 blur-3xl md:block" />
-          <div className="relative space-y-4">
-            <span
-              className="fade-in text-xs uppercase tracking-[0.25em] text-brand"
-              data-animate
-            >
-              Ready to make every impression count?
-            </span>
-            <h2
-              className="reveal font-display text-3xl font-semibold text-white sm:text-4xl"
-              data-animate
-            >
-              Join brands transforming their outdoor advertising with
-              Adverttize.
-            </h2>
-            <p
-              className="reveal reveal-delay-1 mx-auto max-w-2xl text-sm text-neutral-300"
-              data-animate
-            >
-              Bring your strategy, we handle screen selection, creative
-              automation, and performance measurement. Launch a pilot in 7 days
-              with dedicated onboarding.
-            </p>
-            <div className="reveal reveal-delay-2 flex flex-wrap justify-center gap-3" data-animate>
-              <button className="rounded-full bg-brand px-7 py-3 text-sm font-semibold text-neutral-900 shadow-glow transition hover:bg-brand-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand">
-                Talk to an expert
-              </button>
-              <button className="rounded-full border border-white/20 px-7 py-3 text-sm font-semibold text-white transition hover:border-brand hover:text-brand focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand">
-                Download rate card
-              </button>
-            </div>
+          <span className="text-xs uppercase tracking-[0.25em] text-brand">
+            Ready to make every impression count?
+          </span>
+          <h2 className="font-display text-3xl font-semibold text-white sm:text-4xl">
+            Join brands transforming their outdoor advertising with Adverttize.
+          </h2>
+          <p className="mx-auto max-w-2xl text-sm text-white/75">
+            Bring your strategy, we handle screen selection, creative automation, and performance measurement. Launch a pilot in 7 days with dedicated onboarding.
+          </p>
+          <div className="flex flex-wrap justify-center gap-4">
+            <button className="rounded-full bg-brand px-7 py-3 text-sm font-semibold text-neutral-900 shadow-[0_15px_40px_rgba(250,204,21,0.35)] transition hover:bg-brand-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand">
+              Talk to an expert
+            </button>
+            <button className="rounded-full border border-white/30 px-7 py-3 text-sm font-semibold text-white transition hover:border-brand hover:text-brand focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
+              Download rate card
+            </button>
+          </div>
+          <div className="flex flex-wrap justify-center gap-3 text-xs text-white/70 sm:text-sm">
+            {advertiseCtaBullets.map((bullet) => (
+              <span key={bullet.label} className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2">
+                <bullet.icon className="h-4 w-4 text-brand" />
+                {bullet.label}
+              </span>
+            ))}
           </div>
         </div>
       </section>
@@ -728,7 +912,7 @@ export default function Home() {
         id="contact"
         className="border-t border-white/5 bg-black/70 backdrop-blur"
       >
-        <div className="mx-auto grid w-full max-w-6xl gap-12 px-6 py-16 sm:px-8 lg:grid-cols-[1.2fr_1fr] lg:px-12">
+        <div className={`${containerClass} grid gap-12 py-16 lg:grid-cols-[1.2fr_1fr]`}>
           <div className="space-y-6">
             <Logo className="h-12 w-auto" />
             <p className="max-w-md text-sm text-neutral-400">
@@ -770,7 +954,7 @@ export default function Home() {
                   </Link>
                 </li>
                 <li>
-                  <Link className="transition hover:text-white" href="#pricing">
+                  <Link className="transition hover:text-white" href="#invest">
                     Pricing
                   </Link>
                 </li>

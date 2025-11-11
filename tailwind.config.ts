@@ -9,7 +9,7 @@ const config: Config = {
     extend: {
       fontFamily: {
         sans: [
-          "var(--font-inter)",
+          "var(--font-poppins)",
           "ui-sans-serif",
           "system-ui",
           "-apple-system",
@@ -17,7 +17,7 @@ const config: Config = {
           "Segoe UI",
           "sans-serif"
         ],
-        display: ["var(--font-playfair)", "serif"]
+        display: ["var(--font-poppins)", "ui-sans-serif", "system-ui", "sans-serif"]
       },
       colors: {
         brand: {

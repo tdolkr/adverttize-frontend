@@ -1,21 +1,16 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { Inter, Playfair_Display } from "next/font/google";
+import { Poppins } from "next/font/google";
 
-const inter = Inter({
+const poppins = Poppins({
   subsets: ["latin"],
-  variable: "--font-inter"
-});
-
-const playfair = Playfair_Display({
-  subsets: ["latin"],
-  variable: "--font-playfair",
-  weight: ["500", "600", "700"]
+  variable: "--font-poppins",
+  weight: ["400", "500", "600", "700"]
 });
 
 export const metadata: Metadata = {
-  title: "Adverttize — Advertisement made simple",
+  title: "Adverttize",
   description:
     "Premium campaign management with smart targeting, real-time analytics, and ROI tracking."
 };
@@ -26,8 +21,11 @@ export default function RootLayout({
   children: ReactNode;
 }) {
   return (
-    <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
-      <body className="bg-neutral-950 text-neutral-100">{children}</body>
+    <html lang="en" className={poppins.variable}>
+      <body className="bg-neutral-950 text-neutral-100">
+        <div className="noise-overlay" aria-hidden />
+        {children}
+      </body>
     </html>
   );
 }
